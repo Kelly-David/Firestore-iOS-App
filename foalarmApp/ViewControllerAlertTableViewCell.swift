@@ -16,6 +16,7 @@ class ViewControllerAlertTableViewCell: UITableViewCell {
     @IBOutlet weak var alertCellCheckButton: UIButton!
     @IBOutlet weak var alertCellId: UILabel!
     @IBOutlet weak var alertCellSubtitle2: UILabel!
+    @IBOutlet weak var horseActiveCheckButton: UIButton!
     
     var db: Firestore?
     

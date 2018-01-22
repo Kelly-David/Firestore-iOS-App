@@ -1,26 +1,25 @@
 //
-//  ViewController5.swift
+//  ViewController6.swift
 //  foalarmApp
 //
-//  Created by David Kelly on 21/01/2018.
+//  Created by David Kelly on 22/01/2018.
 //  Copyright © 2018 davidkelly. All rights reserved.
 //
 
 import UIKit
-import FirebaseAuth
 import Firestore
 
-class ViewController5: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+class ViewController6: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
     var db:Firestore?
+
+    @IBOutlet weak var horseTable: UITableView!
     
-    @IBOutlet weak var alarmsTable: UITableView!
-    
-    var alarmArray:[Alarm] = []
+    var horseArray:[Horse] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         loadData()
         checkForUpdates()
     }
@@ -28,29 +27,23 @@ class ViewController5: UIViewController, UITableViewDelegate, UITableViewDataSou
     func loadData() {
         db = Firestore.firestore()
         
-        db?.collection("alarms")
-            .order(by: "createdAt", descending: true)
-            .limit(to: 10).getDocuments()
+        db?.collection("horses").whereField("deleted", isEqualTo: false).getDocuments()
                 { (querySnapshot, err) in
                     if let err = err {
                         print("Error getting documents: \(err)")
                     } else {
                         for item in querySnapshot!.documents {
                             
-                            self.alarmArray.append(Alarm(
-                            createdAt:item.data()["createdAt"] as! Date,
-                            deleted:item.data()["deleted"] as! Bool,
-                            displayName:item.data()["displayName"] as! String,
-                            emailAddress:item.data()["emailAddress"] as! String,
-                            id:item.data()["id"] as! String,
-                            ownerUID:item.data()["ownerUID"] as! String,
-                            phone:item.data()["phone"] as! String,
-                            power:item.data()["power"] as! String,
-                            state:item.data()["state"] as! Bool,
-                            updatedAt:item.data()["updatedAt"] as! Date
+                            self.horseArray.append(Horse(
+                                id:item.data()["id"] as! String,
+                                displayName:item.data()["displayName"] as! String,
+                                active:item.data()["state"] as! Bool,
+                                ownerID:item.data()["ownerUID"] as! String,
+                                dueDate:item.data()["dueDate"] as! String,
+                                photoURL:item.data()["photoURL"] as! String
                             ))
                             DispatchQueue.main.async {
-                                self.alarmsTable.reloadData()
+                                self.horseTable.reloadData()
                             }
                         }
                     }
@@ -59,7 +52,7 @@ class ViewController5: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     func checkForUpdates() {
         db = Firestore.firestore()
-        db?.collection("alarms").whereField("createdAt", isGreaterThan: Date() )
+        db?.collection("horses").whereField("createdAt", isGreaterThan: Date() )
             .addSnapshotListener {
                 querySnapshot, error in
                 
@@ -70,7 +63,7 @@ class ViewController5: UIViewController, UITableViewDelegate, UITableViewDataSou
                     
                     if item.type == .added {
                         DispatchQueue.main.async {
-                            self.alarmArray.removeAll()
+                            self.horseArray.removeAll()
                             self.loadData()
                         }
                         
@@ -81,39 +74,39 @@ class ViewController5: UIViewController, UITableViewDelegate, UITableViewDataSou
     
     // Setting up table
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return alarmArray.count
+        return horseArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "alarmCell", for: indexPath) as! ViewControllerAlertTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "horseCell", for: indexPath) as! ViewControllerAlertTableViewCell
         
-        let alarm = alarmArray[indexPath.row]
+        let horse = horseArray[indexPath.row]
         
-        cell.alertCellTitle.text = alarm.displayName
-        cell.alertCellId.text = alarm.id
-        cell.alertCellSubtitle.text = alarm.phone
-        cell.alertCellSubtitle2.text = alarm.emailAddress
+        cell.alertCellTitle.text = horse.displayName
+        cell.alertCellId.text = horse.id
+        cell.alertCellSubtitle.text = horse.dueDate
+        cell.alertCellSubtitle2.text = horse.ownerID
+        horse.active ?
+            cell.horseActiveCheckButton.backgroundColor = UIColor(red: 0, green: 0.5843, blue: 0.7176, alpha: 1.0)
+            : nil
         return cell
     }
+    
+    
+    @IBAction func gotoAlarms(_ sender: UIBarButtonItem) {
+    
+        performSegue(withIdentifier: "segueHorsesToAlarms", sender: self)
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     @IBAction func gotoAlerts(_ sender: UIBarButtonItem) {
-    
-        performSegue(withIdentifier: "segueAlarmsToAlert", sender: self)
-    }
-    @IBAction func logout(_ sender: UIBarButtonItem) {
-    
-        try! Auth.auth().signOut()
-        performSegue(withIdentifier: "segueAlarmsToLogout", sender: self)
+        performSegue(withIdentifier: "segueHorsesToAlerts", sender: self)
     }
     
-    @IBAction func gotoHorses(_ sender: UIBarButtonItem) {
-    
-        performSegue(withIdentifier: "segueAlarmsToHorses", sender: self)
-    }
     /*
     // MARK: - Navigation
 

@@ -143,6 +143,10 @@ class ViewController4: UIViewController, UITableViewDelegate, UITableViewDataSou
         try! Auth.auth().signOut()
         performSegue(withIdentifier: "segueAlertsToLogout", sender: self)
     }
+    @IBAction func gotoHorses(_ sender: UIBarButtonItem) {
+        
+        performSegue(withIdentifier: "segueAlertsToHorses", sender: self)
+    }
     
     /*
     // MARK: - Navigation

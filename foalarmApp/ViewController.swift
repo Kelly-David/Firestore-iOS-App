@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var passwordText: UITextField!
     @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var actionButton: UIButton!
+    @IBOutlet weak var logoImageView: UIImageView!
     
     @IBAction func action(_ sender: Any) {
         
@@ -63,7 +64,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg.jpg")!)
+        self.logoImageView.image = UIImage(named: "logo.png")
     }
 
     override func didReceiveMemoryWarning() {
