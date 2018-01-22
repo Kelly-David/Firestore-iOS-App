@@ -1,0 +1,6 @@
+framework module Pods_foalarmApp {
+  umbrella header "Pods-foalarmApp-umbrella.h"
+
+  export *
+  module * { export * }
+}

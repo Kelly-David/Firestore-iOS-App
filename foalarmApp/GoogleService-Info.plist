@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>359025087096-degfoa8lm50hctj145a8hane1bs98kad.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.359025087096-degfoa8lm50hctj145a8hane1bs98kad</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBB4ibZ2hh6y3KjOx4rE19qU6lK73dqnzs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>359025087096</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.davidkelly.foalarmApp</string>
+	<key>PROJECT_ID</key>
+	<string>foalarm</string>
+	<key>STORAGE_BUCKET</key>
+	<string>foalarm.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:359025087096:ios:61f299f0c80e6c0e</string>
+	<key>DATABASE_URL</key>
+	<string>https://foalarm.firebaseio.com</string>
+</dict>
+</plist>
